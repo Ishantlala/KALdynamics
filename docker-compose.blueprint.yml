@@ -1,0 +1,31 @@
+services:
+  mqtt-broker:
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    environment:
+      POSTGRES_DB: fachealth
+      POSTGRES_USER: fachealth
+      POSTGRES_PASSWORD: change_me
+    ports:
+      - "5432:5432"
+
+  fachealth-api-mcp:
+    build: ./ml_engine
+    env_file: .env.example
+    depends_on:
+      - mqtt-broker
+      - timescaledb
+    ports:
+      - "8000:8000"
+
+  operator-dashboard:
+    build: ./dashboard_ui
+    depends_on:
+      - fachealth-api-mcp
+    ports:
+      - "5173:5173"

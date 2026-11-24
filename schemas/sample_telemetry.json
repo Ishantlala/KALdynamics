@@ -1,0 +1,29 @@
+{
+  "machine_id": "CNC-LINE-02-SPINDLE-01",
+  "plant_id": "BNG-PEENYA-PLANT-01",
+  "edge_gateway_id": "GW-EDGE-04",
+  "timestamp_utc": "2026-11-26T10:15:00Z",
+  "signals": {
+    "vibration_mm_s": 6.8,
+    "temperature_c": 84.5,
+    "pressure_bar": 5.9,
+    "current_a": 19.4
+  },
+  "edge_assessment": {
+    "anomaly_flag": true,
+    "confidence": 0.93,
+    "buffered_offline": false
+  },
+  "cloud_ml_prediction": {
+    "model": "isolation_forest_plus_pytorch_rul",
+    "predicted_rul_hours": 18.5,
+    "fault_category": "spindle_bearing_wear",
+    "recommended_part_sku": "BRG-6208-2RS"
+  },
+  "mcp_orchestration": {
+    "spare_in_stock": false,
+    "draft_work_order_id": "WO-2026-0419",
+    "draft_pr_id": "PR-2026-0112",
+    "human_approval_required": true
+  }
+}

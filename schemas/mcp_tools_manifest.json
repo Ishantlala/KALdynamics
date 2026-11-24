@@ -1,0 +1,77 @@
+{
+  "manifest_version": "1.0.0",
+  "protocol": "MCP",
+  "project": "Project FAChealth",
+  "team": "KALdynamics",
+  "track": "Track 01 - Make MCP Matter",
+  "servers": {
+    "telemetry-mcp": {
+      "description": "Read-only industrial telemetry, anomaly history, and RUL predictions",
+      "tools": [
+        {
+          "name": "get_machine_health_snapshot",
+          "requires_rbac_approval": false,
+          "inputs": ["machine_id"]
+        },
+        {
+          "name": "query_anomaly_events",
+          "requires_rbac_approval": false,
+          "inputs": ["machine_id", "window_minutes"]
+        },
+        {
+          "name": "get_rul_forecast",
+          "requires_rbac_approval": false,
+          "inputs": ["machine_id"]
+        }
+      ]
+    },
+    "cmms-inventory-mcp": {
+      "description": "Spare-parts inventory verification, CMMS work orders, and purchase requisitions",
+      "tools": [
+        {
+          "name": "check_spare_part_stock",
+          "requires_rbac_approval": false,
+          "inputs": ["part_sku", "plant_id"]
+        },
+        {
+          "name": "draft_work_order",
+          "requires_rbac_approval": false,
+          "inputs": ["machine_id", "fault_summary", "recommended_part_sku", "rul_hours"]
+        },
+        {
+          "name": "draft_purchase_requisition",
+          "requires_rbac_approval": false,
+          "inputs": ["part_sku", "quantity", "urgency"]
+        },
+        {
+          "name": "dispatch_work_order",
+          "requires_rbac_approval": true,
+          "allowed_roles": ["maintenance_engineer", "plant_manager"],
+          "inputs": ["draft_work_order_id", "approver_id"]
+        },
+        {
+          "name": "submit_purchase_requisition",
+          "requires_rbac_approval": true,
+          "allowed_roles": ["plant_manager", "procurement_lead"],
+          "inputs": ["draft_pr_id", "approver_id"]
+        }
+      ]
+    },
+    "sop-safety-mcp": {
+      "description": "Asset maintenance checklists and Lockout-Tagout safety procedures",
+      "tools": [
+        {
+          "name": "fetch_asset_safety_sop",
+          "requires_rbac_approval": false,
+          "inputs": ["machine_id", "fault_category"]
+        },
+        {
+          "name": "verify_loto_checklist",
+          "requires_rbac_approval": true,
+          "allowed_roles": ["safety_lead", "maintenance_engineer"],
+          "inputs": ["work_order_id", "checklist_items"]
+        }
+      ]
+    }
+  }
+}

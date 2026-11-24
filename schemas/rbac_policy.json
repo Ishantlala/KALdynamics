@@ -1,0 +1,29 @@
+{
+  "policy_version": "1.0.0",
+  "audit_logging": "immutable_append_only",
+  "roles": {
+    "plant_operator": {
+      "can_view_telemetry": true,
+      "can_acknowledge_alerts": true,
+      "can_dispatch_work_order": false,
+      "can_approve_purchase_requisition": false
+    },
+    "maintenance_engineer": {
+      "can_view_telemetry": true,
+      "can_acknowledge_alerts": true,
+      "can_dispatch_work_order": true,
+      "can_approve_purchase_requisition": false
+    },
+    "plant_manager": {
+      "can_view_telemetry": true,
+      "can_acknowledge_alerts": true,
+      "can_dispatch_work_order": true,
+      "can_approve_purchase_requisition": true
+    },
+    "safety_lead": {
+      "can_view_telemetry": true,
+      "can_verify_loto": true,
+      "can_halt_unsafe_work_order": true
+    }
+  }
+}
